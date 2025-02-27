@@ -55,43 +55,7 @@ function injectContentScript() {
     chrome.devtools.inspectedWindow.eval(
       `
       (function() {
-        try {
-          const trace = window.__VUE_TRACE__;
-          if (!trace) {
-            console.log("No trace object found");
-            return { error: "No trace object found" };
-          }
-          
-          // 获取当前调用树的根节点
-          let root = trace.currentNode;
-          if (!root) {
-            console.log("No current node");
-            return { error: "No active function calls" };
-          }
-          
-          // 向上查找根节点
-          while (root.parent) {
-            root = root.parent;
-          }
-          
-          // 序列化节点数据
-          function serializeNode(node) {
-            return {
-              name: node.name,
-              args: node.args,
-              location: node.location,
-              duration: node.duration,
-              children: node.children ? node.children.map(serializeNode) : []
-            };
-          }
-          
-          // 返回序列化后的数据
-          return { data: serializeNode(root) };
-        } catch (e) {
-          console.error("Error in eval:");
-          return { error: e.message };
-        }
-      })();
+      })()
       `,
       function(result, isException) {
         console.log("Eval callback - Result:", result, "Exception:", isException);

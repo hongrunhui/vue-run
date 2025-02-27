@@ -1,11 +1,13 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueTrace from './plugins/vue-function-trace'
+import solid from 'vite-plugin-solid';
 
 export default defineConfig({
   plugins: [
+    solid(),
     vueTrace(),
-    vue()
+    vue(),
   ],
   optimizeDeps: {
     include: [

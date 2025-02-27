@@ -61,6 +61,7 @@ const vueTracePlugin = createUnplugin((options = {}) => {
             window.__VUE_TRACE__ = {
               traces: [],
               currentNode: null,
+              rootNode: null,
               enter: function(info) {
                 const node = {
                   name: info.name,
@@ -72,12 +73,14 @@ const vueTracePlugin = createUnplugin((options = {}) => {
                   startTime: performance.now()
                 };
                 
+                console.log('Entering function:', node.name);
+                
                 if (this.currentNode) {
                   this.currentNode.children.push(node);
                 } else {
                   this.traces.push(node);
+                  this.rootNode = node;
                 }
-                
                 this.currentNode = node;
                 return node;
               },
@@ -86,6 +89,7 @@ const vueTracePlugin = createUnplugin((options = {}) => {
                   node.endTime = performance.now();
                   node.duration = node.endTime - node.startTime;
                   node.returnValue = returnValue;
+                  console.log('Exiting function:', node.name);
                   this.currentNode = node.parent;
                 }
               }
@@ -98,7 +102,7 @@ const vueTracePlugin = createUnplugin((options = {}) => {
           injectTo: 'head',
           order: 0,
           children: `
-            import { initTraceUI } from '/plugins/vue-function-trace/runtime.js';
+            import { initTraceUI } from '/plugins/vue-function-trace/runtime.jsx';
             window.addEventListener('load', () => {
               initTraceUI();
             });
@@ -114,6 +118,18 @@ const vueTracePlugin = createUnplugin((options = {}) => {
       // 跳过非 JavaScript 文件
       if (!/\.(js|ts|vue|mjs)(\?.*)?$/.test(id)) {
         console.log('[Transform] Skipping non-JS file:', id)
+        return
+      }
+
+      // 跳过 runtime.jsx 文件
+      if (id.includes('runtime.jsx')) {
+        console.log('[Transform] Skipping runtime.jsx:', id)
+        return
+      }
+
+      // 跳过 Solid.js 相关文件
+      if (id.includes('solid-js') || id.includes('solid')) {
+        console.log('[Transform] Skipping Solid.js file:', id)
         return
       }
 

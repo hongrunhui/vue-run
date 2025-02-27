@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "highlight.js": "^11.11.1",
+    "solid-js": "^1.9.5",
+    "vite-plugin-solid": "^2.11.5",
     "vue": "^3.x.x"
   },
   "devDependencies": {
