@@ -1,0 +1,28 @@
+{
+  "name": "vue-run",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "highlight.js": "^11.11.1",
+    "vue": "^3.x.x"
+  },
+  "devDependencies": {
+    "@babel/generator": "^7.26.9",
+    "@babel/parser": "^7.26.9",
+    "@babel/traverse": "^7.26.9",
+    "@babel/types": "^7.26.9",
+    "@vitejs/plugin-vue": "^x.x.x",
+    "@vue/compiler-sfc": "^3.5.13",
+    "@vue/tsconfig": "^0.7.0",
+    "magic-string": "^0.30.17",
+    "unplugin": "^2.2.0",
+    "vite": "^x.x.x",
+    "vue-tsc": "^2.2.0"
+  }
+}

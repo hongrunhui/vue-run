@@ -1,0 +1,11 @@
+{
+  "name": "vue-trace-extension",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build.js"
+  },
+  "devDependencies": {
+    "archiver": "^5.3.1"
+  }
+} 

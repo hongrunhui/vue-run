@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Vue Function Trace",
+  "version": "1.0",
+  "description": "Trace Vue function calls",
+  "devtools_page": "devtools.html",
+  "icons": {
+    "16": "icon16.png"
+  },
+  "action": {
+    "default_icon": "icon16.png"
+  },
+  "permissions": [
+    "scripting",
+    "debugger",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "web_accessible_resources": [{
+    "resources": ["panel.js", "panel.html"],
+    "matches": ["<all_urls>"]
+  }],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+} 
